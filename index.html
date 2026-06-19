@@ -1,0 +1,1101 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prințesa mea ❤️</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #0a0a0f;
+    color: #fff;
+    font-family: 'Georgia', serif;
+    overflow-x: hidden;
+  }
+
+  #particles-canvas {
+    position: fixed;
+    top: 0; left: 0;
+    pointer-events: none;
+    z-index: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  section {
+    position: relative;
+    z-index: 1;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 24px;
+  }
+
+  /* ── INTRO ── */
+  #intro { text-align: center; }
+
+  .crown { font-size: 56px; display: block; margin-bottom: 8px; animation: float 3s ease-in-out infinite; }
+  .heart-pulse { font-size: 72px; display: block; animation: pulse 1.6s ease-in-out infinite; margin-bottom: 28px; }
+
+  @keyframes float {
+    0%,100% { transform: translateY(0); }
+    50%      { transform: translateY(-10px); }
+  }
+  @keyframes pulse {
+    0%,100% { transform: scale(1); }
+    50%      { transform: scale(1.18); }
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes bounce {
+    0%,100% { transform: translateX(-50%) translateY(0); }
+    50%      { transform: translateX(-50%) translateY(8px); }
+  }
+
+  .intro-name {
+    font-size: clamp(40px, 9vw, 88px);
+    font-weight: normal;
+    letter-spacing: 6px;
+    color: #f9c5d1;
+    opacity: 0;
+    animation: fadeUp 1.4s ease forwards 0.3s;
+    margin-bottom: 6px;
+  }
+
+  .intro-nick {
+    font-size: clamp(16px, 3vw, 22px);
+    color: #c9a0aa;
+    letter-spacing: 4px;
+    opacity: 0;
+    animation: fadeUp 1.4s ease forwards 0.9s;
+    margin-bottom: 36px;
+    font-style: italic;
+  }
+
+  .intro-sub {
+    font-size: clamp(15px, 2.5vw, 19px);
+    color: #c9a0aa;
+    opacity: 0;
+    animation: fadeUp 1.4s ease forwards 1.5s;
+    line-height: 1.9;
+    max-width: 560px;
+  }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 32px;
+    left: 50%;
+    color: #f9c5d1;
+    font-size: 12px;
+    letter-spacing: 3px;
+    animation: bounce 2s ease infinite;
+    text-transform: uppercase;
+  }
+
+  /* ── DIVIDER ── */
+  .divider {
+    width: 60px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #f9c5d1, transparent);
+    margin: 36px auto;
+  }
+
+  /* ── SECTION TITLE ── */
+  .section-title {
+    font-size: clamp(20px, 4vw, 36px);
+    font-weight: normal;
+    color: #f9c5d1;
+    letter-spacing: 3px;
+    margin-bottom: 52px;
+    text-align: center;
+  }
+
+  /* ── FIRST MOMENT VIDEO ── */
+  #first-moment {
+    background: linear-gradient(180deg, #0a0a0f 0%, #0f071a 50%, #0a0a0f 100%);
+    text-align: center;
+    gap: 0;
+  }
+
+  .moment-label {
+    font-size: 12px;
+    letter-spacing: 4px;
+    color: #f9c5d1;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    opacity: 0.7;
+  }
+
+  .moment-date-text {
+    font-size: clamp(22px, 4.5vw, 40px);
+    color: #fff;
+    font-weight: normal;
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+  }
+
+  .moment-sub {
+    color: #c9a0aa;
+    font-size: clamp(14px, 2.2vw, 17px);
+    font-style: italic;
+    line-height: 1.8;
+    max-width: 520px;
+    margin: 0 auto 48px;
+  }
+
+  .first-video-wrap {
+    width: 100%;
+    max-width: 600px;
+    border-radius: 24px;
+    overflow: hidden;
+    border: 2px solid rgba(249,197,209,0.25);
+    box-shadow: 0 0 80px rgba(249,197,209,0.12);
+    background: #0f071a;
+    position: relative;
+  }
+
+  .first-video-wrap video {
+    width: 100%;
+    display: block;
+    max-height: 70vh;
+    object-fit: cover;
+  }
+
+  .video-overlay-text {
+    position: absolute;
+    top: 16px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(10,7,26,0.75);
+    backdrop-filter: blur(6px);
+    padding: 8px 20px;
+    border-radius: 40px;
+    font-size: 12px;
+    letter-spacing: 3px;
+    color: #f9c5d1;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .moment-caption {
+    margin-top: 28px;
+    font-size: 15px;
+    color: #c9a0aa;
+    font-style: italic;
+    max-width: 460px;
+    line-height: 1.8;
+    text-align: center;
+  }
+
+  /* ── SLIDESHOW ── */
+  #gallery {
+    background: linear-gradient(180deg, #0a0a0f 0%, #12071a 50%, #0a0a0f 100%);
+  }
+
+  .slide-container { width: 100%; max-width: 900px; }
+
+  .slide {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    gap: 36px;
+    animation: slideIn 0.7s ease;
+  }
+  .slide.active { display: flex; }
+
+  @keyframes slideIn {
+    from { opacity: 0; transform: scale(0.96); }
+    to   { opacity: 1; transform: scale(1); }
+  }
+
+  .slide-photo {
+    width: 100%;
+    max-width: 460px;
+    aspect-ratio: 4/3;
+    border-radius: 20px;
+    overflow: hidden;
+    border: 2px solid rgba(249,197,209,0.25);
+    box-shadow: 0 0 60px rgba(249,197,209,0.12);
+  }
+
+  .slide-photo img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+  }
+
+  .photo-placeholder {
+    width: 100%; height: 100%;
+    background: linear-gradient(135deg, #1a0a1e 0%, #2d1435 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    color: #c9a0aa;
+  }
+  .photo-placeholder span { font-size: 44px; }
+  .photo-placeholder p { font-size: 13px; letter-spacing: 1px; opacity: 0.6; }
+
+  .slide-message { text-align: center; max-width: 580px; padding: 0 16px; }
+  .slide-number { font-size: 11px; letter-spacing: 4px; color: #f9c5d1; text-transform: uppercase; margin-bottom: 14px; opacity: 0.6; }
+  .slide-quote { font-size: clamp(17px, 3.2vw, 24px); line-height: 1.75; color: #fff; font-style: italic; margin-bottom: 18px; }
+  .slide-detail { font-size: clamp(13px, 1.8vw, 15px); color: #c9a0aa; line-height: 1.95; }
+
+  .slide-controls { display: flex; align-items: center; gap: 24px; margin-top: 44px; }
+
+  .slide-btn {
+    background: rgba(249,197,209,0.08);
+    border: 1px solid rgba(249,197,209,0.25);
+    color: #f9c5d1;
+    width: 48px; height: 48px;
+    border-radius: 50%;
+    font-size: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .slide-btn:hover { background: rgba(249,197,209,0.18); transform: scale(1.1); }
+
+  .slide-dots { display: flex; gap: 10px; }
+  .dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: rgba(249,197,209,0.28);
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  .dot.active { background: #f9c5d1; transform: scale(1.45); }
+
+  /* ── PROMISES ── */
+  #promises { background: #0a0a0f; }
+
+  .promises-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(255px, 1fr));
+    gap: 24px;
+    max-width: 880px;
+    width: 100%;
+  }
+
+  .promise-card {
+    background: rgba(249,197,209,0.04);
+    border: 1px solid rgba(249,197,209,0.13);
+    border-radius: 20px;
+    padding: 34px 26px;
+    text-align: center;
+    opacity: 0;
+    transform: translateY(36px);
+    transition: all 0.6s ease;
+  }
+  .promise-card.visible { opacity: 1; transform: translateY(0); }
+  .promise-card:hover {
+    border-color: rgba(249,197,209,0.35);
+    background: rgba(249,197,209,0.08);
+    transform: translateY(-4px);
+  }
+
+  .promise-icon { font-size: 34px; margin-bottom: 14px; }
+  .promise-title { font-size: 17px; color: #f9c5d1; margin-bottom: 10px; letter-spacing: 1px; }
+  .promise-text { font-size: 14px; color: #c9a0aa; line-height: 1.85; }
+
+  /* ── LETTER ── */
+  #letter { background: linear-gradient(180deg, #0a0a0f, #0f0a1a); }
+
+  .letter-box {
+    max-width: 660px;
+    width: 100%;
+    background: rgba(249,197,209,0.04);
+    border: 1px solid rgba(249,197,209,0.14);
+    border-radius: 24px;
+    padding: 52px 48px;
+    text-align: center;
+  }
+  .letter-box p { font-size: clamp(14px, 2.1vw, 17px); color: #ddc5cc; line-height: 2.05; margin-bottom: 22px; }
+  .letter-box p:last-child { margin-bottom: 0; }
+  .letter-box em { color: #f9c5d1; font-style: normal; }
+  .signature { margin-top: 36px; font-size: 21px; color: #f9c5d1; letter-spacing: 2px; }
+
+  /* ── MOVIE ── */
+  #movie { background: #0a0a0f; gap: 0; }
+
+  .video-wrap {
+    width: 100%; max-width: 740px;
+    aspect-ratio: 16/9;
+    border-radius: 20px;
+    overflow: hidden;
+    border: 1px solid rgba(249,197,209,0.18);
+    box-shadow: 0 0 80px rgba(249,197,209,0.09);
+    margin-bottom: 28px;
+  }
+  .video-wrap iframe { width: 100%; height: 100%; border: none; }
+  .video-caption { text-align: center; color: #c9a0aa; font-size: 15px; font-style: italic; max-width: 520px; line-height: 1.8; }
+
+  /* ── FINAL ── */
+  #final { text-align: center; }
+  .final-heart { font-size: 96px; display: block; animation: pulse 2s ease-in-out infinite; margin-bottom: 28px; }
+  .final-title { font-size: clamp(22px, 5vw, 48px); color: #f9c5d1; font-weight: normal; letter-spacing: 4px; margin-bottom: 16px; }
+  .final-name { font-size: clamp(14px, 2.8vw, 20px); color: #c9a0aa; letter-spacing: 2px; }
+
+  /* ── ITALIA ── */
+  #italia {
+    background: linear-gradient(180deg, #0a0a0f 0%, #07100f 40%, #0a0f07 70%, #0a0a0f 100%);
+    text-align: center;
+    gap: 0;
+    padding: 80px 24px;
+  }
+
+  .italy-header { margin-bottom: 52px; }
+
+  .italy-title {
+    font-size: clamp(52px, 12vw, 110px);
+    font-weight: normal;
+    letter-spacing: 8px;
+    color: #c8e6c9;
+    line-height: 1;
+    margin-bottom: 20px;
+    opacity: 0.9;
+  }
+
+  .italy-sub {
+    font-size: clamp(14px, 2.2vw, 17px);
+    color: #a5c8a7;
+    line-height: 1.9;
+    max-width: 560px;
+    margin: 0 auto;
+    font-style: italic;
+  }
+
+  .italy-sub em { color: #c8e6c9; font-style: normal; }
+
+  .italy-slide-container {
+    width: 100%;
+    max-width: 700px;
+  }
+
+  .italy-slide {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    gap: 28px;
+    animation: slideIn 0.7s ease;
+  }
+  .italy-slide.active { display: flex; }
+
+  .italy-photo {
+    width: 100%;
+    aspect-ratio: 4/3;
+    border-radius: 20px;
+    overflow: hidden;
+    border: 2px solid rgba(200,230,201,0.25);
+    box-shadow: 0 0 80px rgba(200,230,201,0.1);
+  }
+
+  .italy-photo img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+  }
+
+  .italy-msg { text-align: center; max-width: 560px; }
+
+  .italy-caption {
+    font-size: clamp(15px, 2.4vw, 19px);
+    color: #c8e6c9;
+    font-style: italic;
+    line-height: 1.75;
+  }
+
+  /* ── HER GALLERY ── */
+  #her-gallery {
+    background: linear-gradient(180deg, #0a0a0f 0%, #0f0718 50%, #0a0a0f 100%);
+    text-align: center;
+  }
+
+  .her-slide-container {
+    width: 100%;
+    max-width: 520px;
+  }
+
+  .her-slide {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    animation: slideIn 0.7s ease;
+  }
+  .her-slide.active { display: flex; }
+
+  .her-photo {
+    width: 100%;
+    aspect-ratio: 3/4;
+    border-radius: 24px;
+    overflow: hidden;
+    border: 2px solid rgba(249,197,209,0.3);
+    box-shadow: 0 0 80px rgba(249,197,209,0.18);
+  }
+
+  .her-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+  }
+
+  .her-caption {
+    font-size: clamp(15px, 2.5vw, 19px);
+    color: #f0d0d8;
+    font-style: italic;
+    line-height: 1.75;
+    max-width: 460px;
+    padding: 0 8px;
+  }
+
+  @media (max-width: 600px) {
+    section { padding: 60px 16px; }
+
+    /* intro */
+    .crown { font-size: 40px; }
+    .heart-pulse { font-size: 56px; margin-bottom: 20px; }
+    .intro-name { letter-spacing: 3px; }
+    .intro-nick { font-size: 14px; letter-spacing: 2px; }
+    .scroll-hint { font-size: 11px; }
+
+    /* first moment */
+    .moment-date-text { font-size: 22px; }
+    .first-video-wrap { border-radius: 16px; }
+    .video-overlay-text { font-size: 10px; padding: 6px 14px; }
+
+    /* slideshows */
+    .slide-photo { border-radius: 14px; }
+    .slide-btn { width: 44px; height: 44px; font-size: 18px; }
+    .slide-controls { gap: 16px; margin-top: 28px; }
+    .dot { width: 7px; height: 7px; }
+
+    /* her gallery */
+    .her-photo { aspect-ratio: 3/4; border-radius: 16px; }
+    .her-caption { font-size: 15px; }
+
+    /* italy */
+    .italy-title { font-size: 56px; letter-spacing: 4px; }
+    .italy-photo { border-radius: 14px; }
+    .italy-caption { font-size: 15px; }
+
+    /* promises */
+    .promises-grid { grid-template-columns: 1fr; gap: 16px; }
+    .promise-card { padding: 26px 20px; }
+
+    /* letter */
+    .letter-box { padding: 30px 18px; }
+
+    /* video section */
+    .video-wrap { border-radius: 14px; }
+
+    /* final */
+    .final-heart { font-size: 72px; }
+  }
+</style>
+</head>
+<body>
+
+<canvas id="particles-canvas"></canvas>
+
+<!-- ══ INTRO ══ -->
+<section id="intro">
+  <span class="crown">👑</span>
+  <span class="heart-pulse">❤️</span>
+  <h1 class="intro-name">iubire</h1>
+  <p class="intro-nick">pisea · îngeraș · prințesa mea</p>
+  <p class="intro-sub">
+    Nu știam că cineva poate schimba totul doar prin prezența lui.<br>
+    Acum știu. Ești tu.<br>
+    Ești singurul.
+  </p>
+  <div class="scroll-hint">↓ coboară</div>
+</section>
+
+<!-- ══ PRIMA NOASTRĂ ZI ══ -->
+<section id="first-moment">
+  <p class="moment-label">Prima noastră amintire</p>
+  <h2 class="moment-date-text">Ziua în care ne-am pus împreună</h2>
+  <p class="moment-sub">
+    După o cină. Poate părea rapid pentru unii —<br>
+    dar eu știam deja că tu ești <em style="color:#f9c5d1;">prințesa mea</em>,<br>
+    înainte să fii oficial a mea.
+  </p>
+
+  <div class="first-video-wrap">
+    <span class="video-overlay-text">Prima noastră zi ❤️</span>
+    <video
+      src="IMG_4890.mp4"
+      controls
+      playsinline
+      preload="metadata"
+      poster="">
+      Browserul tău nu suportă redarea video.
+    </video>
+  </div>
+
+  <p class="moment-caption">
+    Acesta este momentul de la care a început totul.<br>
+    Îl păstrez cu mine ca pe ceva sfânt.
+  </p>
+</section>
+
+<!-- ══ GALERIA EI ══ -->
+<section id="her-gallery">
+  <p class="moment-label" style="margin-bottom:14px;">Doar tu</p>
+  <h2 class="moment-date-text" style="margin-bottom:12px;">Tu, așa cum te văd eu</h2>
+  <p class="moment-sub" style="margin-bottom:52px;">
+    Poze pe care le-am salvat pentru că nu mă săturam să te privesc.<br>
+    Poze pe care mi le-ai trimis și pe care le-am privit de sute de ori.<br>
+    Poze în care te admiram în tăcere și nu îți spuneam nimic.
+  </p>
+
+  <div class="her-slide-container">
+    <div class="her-slide active" id="hslide-1">
+      <div class="her-photo"><img src="5.jpg" alt="ea"></div>
+      <p class="her-caption">"Frumusețea ta nu se forțează. Este doar a ta."</p>
+    </div>
+    <div class="her-slide" id="hslide-2">
+      <div class="her-photo"><img src="6.jpg" alt="ea"></div>
+      <p class="her-caption">"Am salvat poza asta și am privit-o mai mult decât aș vrea să recunosc."</p>
+    </div>
+    <div class="her-slide" id="hslide-3">
+      <div class="her-photo"><img src="7.jpg" alt="ea"></div>
+      <p class="her-caption">"Nici nu știai cât ești de frumoasă, iubire."</p>
+    </div>
+    <div class="her-slide" id="hslide-4">
+      <div class="her-photo"><img src="8.jpg" alt="ea"></div>
+      <p class="her-caption">"Am văzut poza asta și am zâmbit singur fără să vreau."</p>
+    </div>
+    <div class="her-slide" id="hslide-5">
+      <div class="her-photo"><img src="9.jpg" alt="ea"></div>
+      <p class="her-caption">"Te admiram și nu îți spuneam. Ar fi trebuit să îți spun mai des."</p>
+    </div>
+    <div class="her-slide" id="hslide-6">
+      <div class="her-photo"><img src="10.jpg" alt="ea"></div>
+      <p class="her-caption">"Prințesa mea, chiar și fără să încerci, ești cea mai frumoasă."</p>
+    </div>
+    <div class="her-slide" id="hslide-7">
+      <div class="her-photo"><img src="11.jpg" alt="ea"></div>
+      <p class="her-caption">"Cât de norocos sunt că te-am avut lângă mine."</p>
+    </div>
+    <div class="her-slide" id="hslide-8">
+      <div class="her-photo"><img src="12.jpg" alt="ea"></div>
+      <p class="her-caption">"Ochii tăi spun mai mult decât orice cuvânt."</p>
+    </div>
+    <div class="her-slide" id="hslide-9">
+      <div class="her-photo"><img src="13.jpg" alt="ea"></div>
+      <p class="her-caption">"Cum am ajuns eu să am lângă mine pe cineva ca tine, pisea?"</p>
+    </div>
+    <div class="her-slide" id="hslide-10">
+      <div class="her-photo"><img src="14.jpg" alt="ea"></div>
+      <p class="her-caption">"Poza asta mi-a luminat ziua de fiecare dată când am privit-o."</p>
+    </div>
+    <div class="her-slide" id="hslide-11">
+      <div class="her-photo"><img src="15.jpg" alt="ea"></div>
+      <p class="her-caption">"Îngerașul meu — și în poze îți simt căldura."</p>
+    </div>
+    <div class="her-slide" id="hslide-12">
+      <div class="her-photo"><img src="16.jpg" alt="ea"></div>
+      <p class="her-caption">"Nu aveai nevoie de nimic. Ești frumoasă pur și simplu."</p>
+    </div>
+    <div class="her-slide" id="hslide-13">
+      <div class="her-photo"><img src="17.jpg" alt="ea"></div>
+      <p class="her-caption">"Fiecare poză cu tine e o dovadă că am avut ceva extraordinar."</p>
+    </div>
+    <div class="her-slide" id="hslide-14">
+      <div class="her-photo"><img src="18.jpg" alt="ea"></div>
+      <p class="her-caption">"Le-am salvat pe toate. Fiecare. Pentru că tu merităi să fii amintită."</p>
+    </div>
+    <div class="her-slide" id="hslide-15">
+      <div class="her-photo"><img src="19.jpg" alt="ea"></div>
+      <p class="her-caption">"Zâmbetul tău e cel mai frumos lucru pe care l-am văzut, pisea."</p>
+    </div>
+    <div class="her-slide" id="hslide-16">
+      <div class="her-photo"><img src="20.jpg" alt="ea"></div>
+      <p class="her-caption">"Nu știai cât de mult te priveam. Acum știi."</p>
+    </div>
+    <div class="her-slide" id="hslide-17">
+      <div class="her-photo"><img src="21.jpg" alt="ea"></div>
+      <p class="her-caption">"Prințesa mea — în fiecare poză ești exact cum te știu eu."</p>
+    </div>
+    <div class="her-slide" id="hslide-18">
+      <div class="her-photo"><img src="22.jpg" alt="ea"></div>
+      <p class="her-caption">"Te-am admirat mereu în tăcere. Sper că o simțeai."</p>
+    </div>
+    <div class="her-slide" id="hslide-19">
+      <div class="her-photo"><img src="23.jpg" alt="ea"></div>
+      <p class="her-caption">"Tu ești motivul pentru care am vrut să fiu un om mai bun."</p>
+    </div>
+
+    <div class="slide-controls">
+      <button class="slide-btn" onclick="changeHerSlide(-1)">←</button>
+      <div class="slide-dots" id="her-dots"></div>
+      <button class="slide-btn" onclick="changeHerSlide(1)">→</button>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SLIDESHOW ══ -->
+<section id="gallery">
+  <h2 class="section-title">Noi, în imagini</h2>
+  <div class="slide-container">
+
+    <div class="slide active" id="slide-1">
+      <div class="slide-photo">
+        <img src="1.jpg" alt="Revelion la concert">
+      </div>
+      <div class="slide-message">
+        <p class="slide-number">Revelion împreună ✨</p>
+        <p class="slide-quote">"Prima noastră poză. Primul nostru an nou. Lângă tine."</p>
+        <p class="slide-detail">Concert, lumini, muzică — și tu lângă mine. Când am privit în jur în noaptea aceea și te-am văzut, am știut că nu există loc în care aș fi vrut să fiu mai mult decât acolo, cu tine, la început de an nou.</p>
+      </div>
+    </div>
+
+    <div class="slide" id="slide-2">
+      <div class="slide-photo">
+        <img src="2.jpg" alt="În mașină împreună">
+      </div>
+      <div class="slide-message">
+        <p class="slide-number">Primele noastre momente 🚗</p>
+        <p class="slide-quote">"În mașină, doar noi doi — și lumea putea să aștepte."</p>
+        <p class="slide-detail">Nu conta unde mergeam. Conta că eram împreună. Muzică în fundal, tu lângă mine — acele momente simple sunt unele dintre cele mai frumoase pe care le am cu tine.</p>
+      </div>
+    </div>
+
+    <div class="slide" id="slide-3">
+      <div class="slide-photo">
+        <img src="3.jpg" alt="În mașină împreună">
+      </div>
+      <div class="slide-message">
+        <p class="slide-number">Noi, pur și simplu 💫</p>
+        <p class="slide-quote">"Pisea, lângă tine mă simt natural. Complet."</p>
+        <p class="slide-detail">Nu trebuie să joc niciun rol cu tine. Nu trebuie să mă prefac. Pot să fiu exact cine sunt — și asta e cel mai rar lucru pe care mi l-a oferit cineva vreodată. Îți mulțumesc că exiști.</p>
+      </div>
+    </div>
+
+    <div class="slide" id="slide-4">
+      <div class="slide-photo">
+        <img src="4.jpg" alt="În mașină împreună">
+      </div>
+      <div class="slide-message">
+        <p class="slide-number">Amintire de neuitat ❤️</p>
+        <p class="slide-quote">"Fiecare secundă cu tine a contat. Contează. Va conta mereu."</p>
+        <p class="slide-detail">Râsul tău, felul în care te uiți la mine, vocea ta — sunt lucruri pe care nu le pot schimba cu nimic din lume. Le port cu mine oriunde merg și vor fi mereu ale mele, indiferent de orice.</p>
+      </div>
+    </div>
+
+    <div class="slide" id="slide-5">
+      <div class="slide-photo">
+        <img src="24.jpg" alt="Noi împreună">
+      </div>
+      <div class="slide-message">
+        <p class="slide-number">Ieșirile noastre ✨</p>
+        <p class="slide-quote">"Nu conta unde mergeam. Conta că eram împreună."</p>
+        <p class="slide-detail">Fiecare loc în care am mers cu tine a primit un sens pe care nu l-ar fi avut fără tine. Nu locul a contat — ci tu, lângă mine, în fiecare moment.</p>
+      </div>
+    </div>
+
+    <div class="slide" id="slide-6">
+      <div class="slide-photo">
+        <img src="25.jpg" alt="Noi împreună">
+      </div>
+      <div class="slide-message">
+        <p class="slide-number">Noi doi 💫</p>
+        <p class="slide-quote">"Lângă tine chiar și cele mai simple momente devin speciale."</p>
+        <p class="slide-detail">Nu aveam nevoie de ceva grandios. Tu aveai darul ăsta de a face totul să pară mai frumos decât era — și eu mă bucuram de fiecare secundă petrecută cu tine.</p>
+      </div>
+    </div>
+
+    <div class="slide" id="slide-7">
+      <div class="slide-photo">
+        <img src="26.jpg" alt="Noi împreună">
+      </div>
+      <div class="slide-message">
+        <p class="slide-number">Amintiri reale ❤️</p>
+        <p class="slide-quote">"Astea sunt momentele pe care le port cu mine oriunde."</p>
+        <p class="slide-detail">Nu îmi trebuie un calendar să îmi amintesc. Le simt. Le port cu mine în fiecare zi — și îmi amintesc cum mă simțeam lângă tine, cât de bine era, cât de natural.</p>
+      </div>
+    </div>
+
+    <div class="slide" id="slide-8">
+      <div class="slide-photo">
+        <img src="27.jpg" alt="Noi împreună">
+      </div>
+      <div class="slide-message">
+        <p class="slide-number">Noi, pur și simplu 🌙</p>
+        <p class="slide-quote">"Pisea, cu tine nu mă plictiseam niciodată."</p>
+        <p class="slide-detail">Eram mereu bine. Nu simțeam că trebuie să umplu tăcerile sau să forțez ceva. Cu tine totul venea natural — și asta e cel mai rar lucru pe care l-am simțit vreodată lângă cineva.</p>
+      </div>
+    </div>
+
+    <div class="slide" id="slide-9">
+      <div class="slide-photo">
+        <img src="28.jpg" alt="Noi împreună">
+      </div>
+      <div class="slide-message">
+        <p class="slide-number">Momentele noastre 🌸</p>
+        <p class="slide-quote">"Îmi doream ca fiecare ieșire să nu se mai termine."</p>
+        <p class="slide-detail">Știam că o să îmi fie dor de momentele astea. Și aveam dreptate. Îmi este dor — de tine, de noi, de felul în care era totul când eram împreună.</p>
+      </div>
+    </div>
+
+    <div class="slide" id="slide-10">
+      <div class="slide-photo">
+        <img src="29.jpg" alt="Noi împreună">
+      </div>
+      <div class="slide-message">
+        <p class="slide-number">Noi, afară în lume 🌿</p>
+        <p class="slide-quote">"Cu tine, orice loc era locul meu preferat."</p>
+        <p class="slide-detail">Nu conta dacă era un loc simplu sau ceva special. Tu îl transformai. Tu îl făceai să conteze. Și eu rămâneam mereu cu gândul că vreau să mai revin — cu tine.</p>
+      </div>
+    </div>
+
+    <div class="slide" id="slide-11">
+      <div class="slide-photo">
+        <img src="30.jpg" alt="Noi împreună">
+      </div>
+      <div class="slide-message">
+        <p class="slide-number">Iubire adevărată 💕</p>
+        <p class="slide-quote">"Iubire, am vrut mereu să îți dau mai mult decât am dat."</p>
+        <p class="slide-detail">Știu că nu am arătat-o întotdeauna cum trebuia. Dar ce simțeam era real — și e real în continuare. Nicio poză nu prinde tot, dar fiecare poză îmi amintește cât de mult contezi.</p>
+      </div>
+    </div>
+
+    <div class="slide" id="slide-12">
+      <div class="slide-photo">
+        <img src="31.jpg" alt="Noi împreună">
+      </div>
+      <div class="slide-message">
+        <p class="slide-number">Ultima — dar nu ultima 🕊️</p>
+        <p class="slide-quote">"Voi lupta pentru noi. Mereu."</p>
+        <p class="slide-detail">Nu pentru că trebuie. Ci pentru că tu ești singurul lucru din viața mea pentru care lupta are sens cu adevărat. Vei fi mereu pe primul loc — și de data aceasta voi face totul să simți asta în fiecare zi.</p>
+      </div>
+    </div>
+
+    <div class="slide-controls">
+      <button class="slide-btn" onclick="changeSlide(-1)">←</button>
+      <div class="slide-dots" id="dots"></div>
+      <button class="slide-btn" onclick="changeSlide(1)">→</button>
+    </div>
+  </div>
+</section>
+
+<!-- ══ ITALIA ══ -->
+<section id="italia">
+  <div class="italy-header">
+    <p class="moment-label" style="margin-bottom:10px;">Prima noastră călătorie ✈️</p>
+    <h2 class="italy-title">Italia</h2>
+    <p class="italy-sub">
+      Prima dată când am planificat ceva împreună — doar noi doi, un loc nou,<br>
+      înghețată, locații, momente stranii și frumoase în același timp.<br>
+      <em>Cea mai superbă călătorie din viața mea.</em>
+    </p>
+  </div>
+
+  <div class="italy-slide-container">
+    <div class="italy-slide active" id="islide-1">
+      <div class="italy-photo"><img src="32.jpg" alt="Italia"></div>
+      <div class="italy-msg">
+        <p class="italy-caption">"Prima noastră călătorie planificată. Am știut că o să fie specială — și a fost mai mult decât atât."</p>
+      </div>
+    </div>
+    <div class="italy-slide" id="islide-2">
+      <div class="italy-photo"><img src="33.jpg" alt="Italia"></div>
+      <div class="italy-msg">
+        <p class="italy-caption">"Nu conta unde eram. Conta că eram împreună, departe de tot, doar noi doi."</p>
+      </div>
+    </div>
+    <div class="italy-slide" id="islide-3">
+      <div class="italy-photo"><img src="34.jpg" alt="Italia"></div>
+      <div class="italy-msg">
+        <p class="italy-caption">"Fiecare moment din călătoria asta l-am simțit de două ori — o dată trăindu-l, o dată privindu-te pe tine."</p>
+      </div>
+    </div>
+    <div class="italy-slide" id="islide-4">
+      <div class="italy-photo"><img src="35.jpg" alt="Italia"></div>
+      <div class="italy-msg">
+        <p class="italy-caption">"Chiar și momentele stranii au fost frumoase cu tine lângă mine, pisea."</p>
+      </div>
+    </div>
+    <div class="italy-slide" id="islide-5">
+      <div class="italy-photo"><img src="36.jpg" alt="Italia"></div>
+      <div class="italy-msg">
+        <p class="italy-caption">"Priveam în jur și gândeam — nu contează ce e în jur, contezi tu."</p>
+      </div>
+    </div>
+    <div class="italy-slide" id="islide-6">
+      <div class="italy-photo"><img src="37.jpg" alt="Italia"></div>
+      <div class="italy-msg">
+        <p class="italy-caption">"Amintirile din zilele astea rămân cu mine indiferent de orice."</p>
+      </div>
+    </div>
+    <div class="italy-slide" id="islide-7">
+      <div class="italy-photo"><img src="38.jpg" alt="Italia"></div>
+      <div class="italy-msg">
+        <p class="italy-caption">"Prima noastră aventură — și sper din tot sufletul că nu și ultima, iubire."</p>
+      </div>
+    </div>
+    <div class="italy-slide" id="islide-8">
+      <div class="italy-photo"><img src="39.jpg" alt="Italia"></div>
+      <div class="italy-msg">
+        <p class="italy-caption">"Eram fericit. Simplu și sincer — fericit, cu tine, acolo."</p>
+      </div>
+    </div>
+    <div class="italy-slide" id="islide-9">
+      <div class="italy-photo"><img src="40.jpg" alt="Italia"></div>
+      <div class="italy-msg">
+        <p class="italy-caption">"Le port cu mine pe toate. Nu uit nimic din ce am trăit cu tine."</p>
+      </div>
+    </div>
+    <div class="italy-slide" id="islide-10">
+      <div class="italy-photo"><img src="41.jpg" alt="Italia"></div>
+      <div class="italy-msg">
+        <p class="italy-caption">"Îngerașul meu — oriunde am fi, tu ești cel mai frumos lucru din peisaj."</p>
+      </div>
+    </div>
+    <div class="italy-slide" id="islide-11">
+      <div class="italy-photo"><img src="42.jpg" alt="Italia"></div>
+      <div class="italy-msg">
+        <p class="italy-caption">"Vreau să mai facem asta. Să mai descoperim lumi noi împreună, prințesa mea."</p>
+      </div>
+    </div>
+
+    <div class="slide-controls" style="margin-top:36px;">
+      <button class="slide-btn" onclick="changeItalySlide(-1)">←</button>
+      <div class="slide-dots" id="italy-dots"></div>
+      <button class="slide-btn" onclick="changeItalySlide(1)">→</button>
+    </div>
+  </div>
+</section>
+
+<!-- ══ PROMISIUNI ══ -->
+<section id="promises">
+  <h2 class="section-title">Ce îți promit, iubire</h2>
+  <div class="promises-grid">
+    <div class="promise-card">
+      <div class="promise-icon">👑</div>
+      <p class="promise-title">Să fii mereu prințesa mea</p>
+      <p class="promise-text">Ți-am spus-o prima dată înainte să fii a mea. O spun acum. O voi spune mereu — pentru că asta ești tu pentru mine.</p>
+    </div>
+    <div class="promise-card">
+      <div class="promise-icon">🌅</div>
+      <p class="promise-title">Să fiu prezent</p>
+      <p class="promise-text">Nu doar cu trupul. Cu gândul, cu atenția, cu inima. Acolo unde contează, nu doar când e ușor.</p>
+    </div>
+    <div class="promise-card">
+      <div class="promise-icon">🔐</div>
+      <p class="promise-title">Să fiu doar al tău</p>
+      <p class="promise-text">Nu am nevoie de nimeni altcineva. Tu ești destul — mai mult decât destul. Ești tot ce mi-am dorit fără să știu că visez la asta.</p>
+    </div>
+    <div class="promise-card">
+      <div class="promise-icon">🌱</div>
+      <p class="promise-title">Să cresc</p>
+      <p class="promise-text">Să nu mai repet greșelile. Să devin omul pe care îl meriți — nu pentru că mi se cere, ci pentru că te iubesc sincer.</p>
+    </div>
+    <div class="promise-card">
+      <div class="promise-icon">🕊️</div>
+      <p class="promise-title">Să lupt</p>
+      <p class="promise-text">Pentru noi. Chiar și atunci când e greu. Chiar și când eu sunt cel care a greșit — tot voi lupta să repar.</p>
+    </div>
+    <div class="promise-card">
+      <div class="promise-icon">💬</div>
+      <p class="promise-title">Să comunic</p>
+      <p class="promise-text">Să nu mai tac când ar trebui să vorbesc. Să îți spun ce simt înainte ca liniștea să devină un zid între noi.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SCRISOAREA ══ -->
+<section id="letter">
+  <h2 class="section-title" style="margin-bottom:36px;">O scrisoare pentru tine</h2>
+  <div class="letter-box">
+    <p>iubire,</p>
+    <p>
+      Îți scriu asta pentru că există lucruri pe care trebuia să le spun altfel decât în vorbe rostite în grabă.
+      Lucruri care merită să rămână undeva, scrise, reale — să le poți citi oricând îți vine.
+    </p>
+    <p>
+      Te-am numit <em>prințesa mea</em> înainte să știu că vei fi a mea. Asta nu a fost un accident.
+      A fost primul moment în care am fost sincer cu mine — că tu ești altfel, că tu contezi,
+      că vreau să fii în viața mea nu pentru o clipă, ci pentru tot.
+    </p>
+    <p>
+      Lângă tine mă simt <em>natural</em>. Nu trebuie să fiu altcineva. Nu trebuie să mă prefac.
+      Și asta e lucrul cel mai rar pe care mi l-a oferit cineva vreodată.
+    </p>
+    <p>
+      Am greșit. Știu asta mai bine decât oricine. Dar greșelile mele nu sunt tot ce sunt eu —
+      și îți jur că am în mine puterea să schimb tot ce trebuie schimbat ca <em>tu să fii cea mai fericită.</em>
+    </p>
+    <p>
+      Nu am nevoie de nimeni altcineva, pisea. Niciodată. Tu ești singurul om lângă care viața are sens.
+      Și voi lupta pentru asta — nu pentru că trebuie, ci pentru că tu meriți un băiat care să lupte.
+    </p>
+    <div class="divider"></div>
+    <p class="signature">Al tău, mereu ❤️</p>
+  </div>
+</section>
+
+<!-- ══ VIDEO FILM ══ -->
+<section id="movie">
+  <h2 class="section-title" style="margin-bottom:12px;">Un moment care spune tot</h2>
+  <p style="color:#c9a0aa; font-size:15px; text-align:center; margin-bottom:36px; letter-spacing:1px; font-style:italic;">
+    Uneori filmele găsesc cuvintele pe care noi nu le putem rosti
+  </p>
+  <div class="video-wrap">
+    <video
+      src="film.MP4"
+      controls
+      playsinline
+      preload="metadata"
+      style="width:100%; height:100%; object-fit:cover;">
+    </video>
+  </div>
+  <p class="video-caption">
+    Uneori un film spune mai bine decât orice cuvânt ce simți tu.<br>
+    <span style="opacity:0.6; font-size:13px;">Aceste cuvinte sunt și ale mele, iubire.</span>
+  </p>
+</section>
+
+<!-- ══ FINAL ══ -->
+<section id="final">
+  <span class="final-heart">❤️</span>
+  <h2 class="final-title">Te iubesc, prințesa mea</h2>
+  <p class="final-name">și asta nu se va schimba niciodată</p>
+  <div class="divider" style="margin-top:44px;"></div>
+  <p style="color:#c9a0aa; font-size:12px; letter-spacing:3px; margin-top:20px; text-align:center;">
+    PISEA · ÎNGERAȘ · PRINȚESA MEA
+  </p>
+</section>
+
+<script>
+/* ── PARTICLES ── */
+const canvas = document.getElementById('particles-canvas');
+const ctx = canvas.getContext('2d');
+let W, H;
+const particles = [];
+
+function resize() { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
+resize();
+window.addEventListener('resize', resize);
+
+for (let i = 0; i < 130; i++) {
+  particles.push({
+    x: Math.random() * screen.width,
+    y: Math.random() * screen.height,
+    r: Math.random() * 1.6 + 0.3,
+    speed: Math.random() * 0.28 + 0.08,
+    alpha: Math.random() * 0.55 + 0.2,
+    flicker: Math.random() * Math.PI * 2
+  });
+}
+
+(function drawParticles() {
+  ctx.clearRect(0, 0, W, H);
+  particles.forEach(p => {
+    p.flicker += 0.018;
+    const a = p.alpha * (0.7 + 0.3 * Math.sin(p.flicker));
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(249,197,209,${a})`;
+    ctx.fill();
+    p.y -= p.speed;
+    if (p.y < -2) { p.y = H + 2; p.x = Math.random() * W; }
+  });
+  requestAnimationFrame(drawParticles);
+})();
+
+/* ── SLIDESHOW ── */
+const TOTAL = 12;
+let current = 1;
+const dotsEl = document.getElementById('dots');
+for (let i = 1; i <= TOTAL; i++) {
+  const d = document.createElement('div');
+  d.className = 'dot' + (i === 1 ? ' active' : '');
+  d.onclick = () => goTo(i);
+  dotsEl.appendChild(d);
+}
+
+function goTo(n) {
+  document.getElementById('slide-' + current).classList.remove('active');
+  dotsEl.children[current - 1].classList.remove('active');
+  current = ((n - 1 + TOTAL) % TOTAL) + 1;
+  document.getElementById('slide-' + current).classList.add('active');
+  dotsEl.children[current - 1].classList.add('active');
+}
+function changeSlide(d) { goTo(current + d); }
+
+/* ── SCROLL REVEAL ── */
+const obs = new IntersectionObserver(entries => {
+  entries.forEach((e, i) => { if (e.isIntersecting) setTimeout(() => e.target.classList.add('visible'), i * 110); });
+}, { threshold: 0.14 });
+document.querySelectorAll('.promise-card').forEach(el => obs.observe(el));
+
+/* ── ITALY SLIDESHOW ── */
+const ITALY_TOTAL = 11;
+let italyCurrent = 1;
+const italyDotsEl = document.getElementById('italy-dots');
+for (let i = 1; i <= ITALY_TOTAL; i++) {
+  const d = document.createElement('div');
+  d.className = 'dot' + (i === 1 ? ' active' : '');
+  d.onclick = () => goToItaly(i);
+  italyDotsEl.appendChild(d);
+}
+function goToItaly(n) {
+  document.getElementById('islide-' + italyCurrent).classList.remove('active');
+  italyDotsEl.children[italyCurrent - 1].classList.remove('active');
+  italyCurrent = ((n - 1 + ITALY_TOTAL) % ITALY_TOTAL) + 1;
+  document.getElementById('islide-' + italyCurrent).classList.add('active');
+  italyDotsEl.children[italyCurrent - 1].classList.add('active');
+}
+function changeItalySlide(d) { goToItaly(italyCurrent + d); }
+
+/* ── HER SLIDESHOW ── */
+const HER_TOTAL = 19;
+let herCurrent = 1;
+const herDotsEl = document.getElementById('her-dots');
+for (let i = 1; i <= HER_TOTAL; i++) {
+  const d = document.createElement('div');
+  d.className = 'dot' + (i === 1 ? ' active' : '');
+  d.onclick = () => goToHer(i);
+  herDotsEl.appendChild(d);
+}
+
+function goToHer(n) {
+  document.getElementById('hslide-' + herCurrent).classList.remove('active');
+  herDotsEl.children[herCurrent - 1].classList.remove('active');
+  herCurrent = ((n - 1 + HER_TOTAL) % HER_TOTAL) + 1;
+  document.getElementById('hslide-' + herCurrent).classList.add('active');
+  herDotsEl.children[herCurrent - 1].classList.add('active');
+}
+function changeHerSlide(d) { goToHer(herCurrent + d); }
+
+/* ── KEYBOARD ── */
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowLeft') changeSlide(-1);
+  if (e.key === 'ArrowRight') changeSlide(1);
+});
+
+/* ── SWIPE SUPPORT ── */
+function addSwipe(selector, onLeft, onRight) {
+  document.querySelectorAll(selector).forEach(el => {
+    let startX = 0;
+    el.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, { passive: true });
+    el.addEventListener('touchend', e => {
+      const diff = startX - e.changedTouches[0].clientX;
+      if (Math.abs(diff) > 50) diff > 0 ? onLeft() : onRight();
+    }, { passive: true });
+  });
+}
+addSwipe('.slide-container', () => changeSlide(1), () => changeSlide(-1));
+addSwipe('.italy-slide-container', () => changeItalySlide(1), () => changeItalySlide(-1));
+addSwipe('.her-slide-container', () => changeHerSlide(1), () => changeHerSlide(-1));
+</script>
+</body>
+</html>
